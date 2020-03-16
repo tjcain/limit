@@ -2,7 +2,6 @@ package redis
 
 import (
 	"errors"
-	"fmt"
 	"sync"
 	"time"
 
@@ -52,8 +51,6 @@ func (b *Bucket) Consume(amt int) (limit.State, error) {
 			count, err = tx.IncrBy(b.key, int64(amt)).Result()
 			return err
 		})
-
-		fmt.Println(count)
 
 		// check for bucket overflow.
 		if int(count) > b.capacity {
